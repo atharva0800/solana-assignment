@@ -1,0 +1,27 @@
+specVersion: v0.1.0
+package:
+  name: solanatransfers  # Updated
+  version: v0.1.0
+
+imports:
+  solana: https://github.com/streamingfast/firehose-solana/releases/download/v0.1.1/solana-v0.1.1.spkg
+
+protobuf:
+  files:
+    - solana.proto
+  importPaths:
+    - ./proto
+
+binaries:
+  default:
+    type: wasm/rust-v1
+    file: ./target/wasm32-unknown-unknown/release/solanatransfers.wasm # Updated to match
+
+modules:
+  - name: map_transfers
+    kind: map
+    initialBlock: 385870151
+    inputs:
+      - source: sf.solana.type.v1.Block
+    output:
+      type: proto:solana.transfers.v1.Transfers
